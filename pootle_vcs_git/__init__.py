@@ -1,10 +1,27 @@
 from git import Repo
 
-from pootle_vcs import Plugin, plugins
+from pootle_vcs import Plugin, plugins, RepositoryFile
+
+
+class GitRepositoryFile(RepositoryFile):
+
+    @property
+    def repo(self):
+        return self.vcs.plugin.repo
+
+    @property
+    def latest_commit(self):
+        return self.repo.git.log(
+            '-1',
+            '--pretty=%H',
+            '--follow',
+            '--',
+            self.path)
 
 
 class GitPlugin(Plugin):
     name = "git"
+    file_class = GitRepositoryFile
 
     @property
     def repo(self):
