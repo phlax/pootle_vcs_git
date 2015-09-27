@@ -16,7 +16,7 @@ class GitRepositoryFile(RepositoryFile):
             '--pretty=%H',
             '--follow',
             '--',
-            self.path)
+            self.file_path)
 
 
 class GitPlugin(Plugin):
